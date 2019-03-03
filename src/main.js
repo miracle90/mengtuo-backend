@@ -6,20 +6,20 @@ import {
   FormItem,
   Input,
   Button,
-  Notification
-  // Container,
-  // Header,
-  // Aside,
-  // Main,
-  // Menu,
-  // Submenu,
-  // MenuItem,
-  // Table,
-  // TableColumn,
-  // Pagination,
-  // Dialog,
-  // Checkbox,
-  // Radio
+  Notification,
+  Container,
+  Header,
+  Aside,
+  Main,
+  Menu,
+  Submenu,
+  MenuItem,
+  Table,
+  TableColumn,
+  Pagination,
+  Dialog,
+  Checkbox,
+  Radio
 } from 'element-ui'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
@@ -30,19 +30,19 @@ Vue.use(Form)
 Vue.use(FormItem)
 Vue.use(Input)
 Vue.use(Button)
-// Vue.use(Container)
-// Vue.use(Header)
-// Vue.use(Aside)
-// Vue.use(Main)
-// Vue.use(Menu)
-// Vue.use(Submenu)
-// Vue.use(MenuItem)
-// Vue.use(Table)
-// Vue.use(TableColumn)
-// Vue.use(Pagination)
-// Vue.use(Dialog)
-// Vue.use(Checkbox)
-// Vue.use(Radio)
+Vue.use(Container)
+Vue.use(Header)
+Vue.use(Aside)
+Vue.use(Main)
+Vue.use(Menu)
+Vue.use(Submenu)
+Vue.use(MenuItem)
+Vue.use(Table)
+Vue.use(TableColumn)
+Vue.use(Pagination)
+Vue.use(Dialog)
+Vue.use(Checkbox)
+Vue.use(Radio)
 Vue.prototype.$notify = Notification
 
 Vue.config.productionTip = false

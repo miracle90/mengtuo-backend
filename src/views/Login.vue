@@ -4,7 +4,7 @@
       <section class="form_contianer" v-show="showLogin">
         <div class="manage_tip">
           <p>梦拓达阵</p>
-          <p>用户信息管理</p>
+          <p>用户信息管理系统</p>
         </div>
         <el-form :model="loginForm" :rules="rules" ref="loginForm">
           <el-form-item prop="username">
