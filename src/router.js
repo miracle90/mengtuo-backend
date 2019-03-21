@@ -6,10 +6,13 @@ import Welcome from './views/Welcome.vue'
 import Account from './views/Account.vue'
 import Course from './views/Course.vue'
 import User from './views/User.vue'
+import Goods from './views/Goods.vue'
+import Exchange from './views/Exchange.vue'
 
 Vue.use(Router)
 
 export default new Router({
+  base: 'manage',
   routes: [
     {
       path: '/',
@@ -18,7 +21,7 @@ export default new Router({
     },
     {
       path: '/index',
-      name: 'index',
+      // name: 'index',
       component: Index,
       children: [
         {
@@ -35,6 +38,16 @@ export default new Router({
           path: '/course',
           name: 'course',
           component: Course
+        },
+        {
+          path: '/goods',
+          name: 'goods',
+          component: Goods
+        },
+        {
+          path: '/exchange',
+          name: 'exchange',
+          component: Exchange
         },
         {
           path: '/account',

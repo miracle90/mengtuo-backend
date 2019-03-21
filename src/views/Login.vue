@@ -3,8 +3,8 @@
     <transition name="form-fade" mode="in-out">
       <section class="form_contianer" v-show="showLogin">
         <div class="manage_tip">
-          <p>梦拓达阵</p>
-          <p>用户信息管理系统</p>
+          <p>梦拓达阵美式橄榄球</p>
+          <p>信息管理平台</p>
         </div>
         <el-form :model="loginForm" :rules="rules" ref="loginForm">
           <el-form-item prop="username">
@@ -23,6 +23,8 @@
 </template>
 
 <script>
+import { loginApi } from '../common/api.js'
+
 export default {
   data () {
     return {
@@ -47,8 +49,9 @@ export default {
   methods: {
     submitForm (formName) {
       this.$refs[formName].validate(valid => {
+        this.$router.push('/index')
         if (valid) {
-          this.axios.post('http://39.98.181.204:8080/mid/user/login2manager', {
+          loginApi({
             username: this.loginForm.username,
             password: this.loginForm.password
           }).then(res => {

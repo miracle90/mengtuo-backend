@@ -19,7 +19,11 @@ import {
   Pagination,
   Dialog,
   Checkbox,
-  Radio
+  Radio,
+  RadioGroup,
+  TimePicker,
+  DatePicker,
+  Col
 } from 'element-ui'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
@@ -43,6 +47,10 @@ Vue.use(Pagination)
 Vue.use(Dialog)
 Vue.use(Checkbox)
 Vue.use(Radio)
+Vue.use(RadioGroup)
+Vue.use(TimePicker)
+Vue.use(DatePicker)
+Vue.use(Col)
 Vue.prototype.$notify = Notification
 
 Vue.config.productionTip = false

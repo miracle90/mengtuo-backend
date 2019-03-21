@@ -1,6 +1,6 @@
 <template>
   <el-container class="index">
-    <el-header class="header">梦拓达阵用户信息管理系统<span class="quit" @click="quit"><i class="el-icon-refresh"></i>退出</span></el-header>
+    <el-header class="header">梦拓达阵系统信息管理平台<span class="quit" @click="quit"><i class="el-icon-refresh"></i>退出</span></el-header>
     <el-container class="container">
       <el-aside width="200px" class="aside">
         <el-menu
@@ -8,6 +8,10 @@
           :default-openeds="defaultOpeneds"
           router
         >
+          <el-menu-item index="exchange" style="text-indent: 0; font-size: 16px; font-weight: 700;">
+            <i class="el-icon-refresh"></i>
+            <span slot="title">兑换管理</span>
+          </el-menu-item>
           <el-menu-item index="user" style="text-indent: 0; font-size: 16px; font-weight: 700;">
             <i class="el-icon-menu"></i>
             <span slot="title">用户管理</span>
@@ -15,6 +19,14 @@
           <el-menu-item index="course" style="text-indent: 0; font-size: 16px; font-weight: 700;">
             <i class="el-icon-date"></i>
             <span slot="title">课程管理</span>
+          </el-menu-item>
+          <el-menu-item index="goods" style="text-indent: 0; font-size: 16px; font-weight: 700;">
+            <i class="el-icon-goods"></i>
+            <span slot="title">商品管理</span>
+          </el-menu-item>
+           <el-menu-item index="config" style="text-indent: 0; font-size: 16px; font-weight: 700;">
+            <i class="el-icon-edit"></i>
+            <span slot="title">首页配置</span>
           </el-menu-item>
           <el-menu-item index="account" style="text-indent: 0; font-size: 16px; font-weight: 700;">
             <i class="el-icon-setting"></i>
@@ -42,8 +54,12 @@ export default {
       return ['1']
     }
   },
+  mounted () {
+    // console.log('1')
+  },
   methods: {
     quit () {
+      localStorage.removeItem('MIDLogInfo')
       this.$router.push('/')
     }
   }

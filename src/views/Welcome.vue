@@ -1,7 +1,7 @@
 <template>
   <div class="welcome">
     <h1>欢迎访问</h1>
-    <h1>设计作品集培训教务平台管理后台</h1>
+    <h1>梦拓达阵系统信息管理平台</h1>
   </div>
 </template>
 
