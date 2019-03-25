@@ -8,11 +8,13 @@ import Course from './views/Course.vue'
 import User from './views/User.vue'
 import Goods from './views/Goods.vue'
 import Exchange from './views/Exchange.vue'
+import Home from './views/Home.vue'
+import Earn from './views/Earn.vue'
 
 Vue.use(Router)
 
 export default new Router({
-  base: 'manage',
+  // base: 'manage',
   routes: [
     {
       path: '/',
@@ -53,6 +55,16 @@ export default new Router({
           path: '/account',
           name: 'account',
           component: Account
+        },
+        {
+          path: '/earn',
+          name: 'earn',
+          component: Earn
+        },
+        {
+          path: '/home',
+          name: 'home',
+          component: Home
         }
       ]
     }

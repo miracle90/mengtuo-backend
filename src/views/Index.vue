@@ -12,10 +12,6 @@
             <i class="el-icon-refresh"></i>
             <span slot="title">兑换管理</span>
           </el-menu-item>
-          <el-menu-item index="user" style="text-indent: 0; font-size: 16px; font-weight: 700;">
-            <i class="el-icon-menu"></i>
-            <span slot="title">用户管理</span>
-          </el-menu-item>
           <el-menu-item index="course" style="text-indent: 0; font-size: 16px; font-weight: 700;">
             <i class="el-icon-date"></i>
             <span slot="title">课程管理</span>
@@ -24,9 +20,17 @@
             <i class="el-icon-goods"></i>
             <span slot="title">商品管理</span>
           </el-menu-item>
-           <el-menu-item index="config" style="text-indent: 0; font-size: 16px; font-weight: 700;">
+          <el-menu-item index="earn" style="text-indent: 0; font-size: 16px; font-weight: 700;">
+            <i class="el-icon-plus"></i>
+            <span slot="title">赚取积分</span>
+          </el-menu-item>
+          <el-menu-item index="home" style="text-indent: 0; font-size: 16px; font-weight: 700;">
             <i class="el-icon-edit"></i>
             <span slot="title">首页配置</span>
+          </el-menu-item>
+          <el-menu-item index="user" style="text-indent: 0; font-size: 16px; font-weight: 700;">
+            <i class="el-icon-menu"></i>
+            <span slot="title">用户管理</span>
           </el-menu-item>
           <el-menu-item index="account" style="text-indent: 0; font-size: 16px; font-weight: 700;">
             <i class="el-icon-setting"></i>

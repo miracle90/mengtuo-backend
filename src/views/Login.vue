@@ -49,7 +49,6 @@ export default {
   methods: {
     submitForm (formName) {
       this.$refs[formName].validate(valid => {
-        this.$router.push('/index')
         if (valid) {
           loginApi({
             username: this.loginForm.username,

@@ -23,7 +23,8 @@ import {
   RadioGroup,
   TimePicker,
   DatePicker,
-  Col
+  Col,
+  Upload
 } from 'element-ui'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
@@ -51,6 +52,7 @@ Vue.use(RadioGroup)
 Vue.use(TimePicker)
 Vue.use(DatePicker)
 Vue.use(Col)
+Vue.use(Upload)
 Vue.prototype.$notify = Notification
 
 Vue.config.productionTip = false

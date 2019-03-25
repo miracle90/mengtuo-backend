@@ -1,7 +1,7 @@
 <template>
   <div class="course">
-    <h3 class="title">商品列表</h3>
-    <el-button type="primary" size="medium" class="btn" @click="addGoods">新增商品</el-button>
+    <h3 class="title">首页配置</h3>
+    <el-button type="primary" size="medium" class="btn" @click="addGoods">新增素材</el-button>
     <el-table
       :data="goodsList"
       border
@@ -14,33 +14,33 @@
         label="ID"></el-table-column>
       <el-table-column
         align="center"
-        prop="name"
-        label="商品名称"></el-table-column>
+        prop="title"
+        label="文章标题"></el-table-column>
       <el-table-column
         align="center"
-        prop="points"
-        label="积分"></el-table-column>
+        prop="type"
+        label="文章类型"></el-table-column>
       <el-table-column
         align="center"
-        prop="price"
-        label="原价"></el-table-column>
+        prop="url"
+        label="文章地址"></el-table-column>
       <el-table-column
         align="center"
         label="缩略图">
         <template slot-scope="scope">
-          <img :src="scope.row.url" alt="" style="width: 50px; height: 50px;">
+          <img :src="scope.row.image" alt="" style="width: 50px; height: 50px;">
         </template>
       </el-table-column>
       <el-table-column
         align="center"
         label="操作">
         <template slot-scope="scope">
-          <el-button @click="modify(scope.row)" type="text" size="small">修改</el-button>
+          <!-- <el-button @click="modify(scope.row)" type="text" size="small">修改</el-button> -->
           <el-button @click="deleteItem(scope.row.id)" type="text" size="small" style="color: red;">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
-    <el-pagination
+    <!-- <el-pagination
       class="pagination"
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
@@ -49,20 +49,21 @@
       :page-size="pageSize"
       layout="total, sizes, prev, pager, next, jumper"
       :total="total">
-    </el-pagination>
+    </el-pagination> -->
     <!-- 新增商品 -->
     <el-dialog :title="dialogTitle" :visible.sync="dialogVisible" width="500px">
+      <!-- <div>文章需要配置标题、类型、对应公众号内文章地址，轮播图只要配置图片即可</div> -->
       <el-form :model="goodsInfo" :rules="rules" ref="ruleForm" label-width="100px">
-        <el-form-item label="商品名称" prop="name">
-          <el-input v-model="goodsInfo.name" placeholder="请填写商品名称"></el-input>
+        <el-form-item label="标题" prop="title">
+          <el-input v-model="goodsInfo.title" placeholder="请填写文章标题"></el-input>
         </el-form-item>
-        <el-form-item label="兑换积分" prop="points">
-          <el-input v-model.number="goodsInfo.points" placeholder="请填写兑换积分"></el-input>
+        <el-form-item label="文章类型" prop="type">
+          <el-input v-model.number="goodsInfo.type" placeholder="请填写文章类型"></el-input>
         </el-form-item>
-        <el-form-item label="商品原价" prop="price">
-          <el-input v-model.number="goodsInfo.price" placeholder="请填写商品原价"></el-input>
+        <el-form-item label="文章地址（公众号）" prop="url">
+          <el-input v-model.number="goodsInfo.url" placeholder="请填写文章地址"></el-input>
         </el-form-item>
-        <el-form-item label="商品图片" prop="imgUrl">
+        <el-form-item label="图片" prop="file">
           <el-upload
             class="avatar-uploader"
             :show-file-list="false"
@@ -84,12 +85,12 @@
 </template>
 
 <script>
-import { getGoodsList, editGoodsApi, delGoodsApi } from '../common/api'
+import { delIndex, editIndex, getIndexList } from '../common/api'
 
-function getBase64(img, callback) {
-  const reader = new FileReader();
-  reader.addEventListener('load', () => callback(reader.result));
-  reader.readAsDataURL(img);
+function getBase64 (img, callback) {
+  const reader = new FileReader()
+  reader.addEventListener('load', () => callback(reader.result))
+  reader.readAsDataURL(img)
 }
 
 export default {
@@ -99,7 +100,7 @@ export default {
       currentPage: 1,
       total: 0,
       pageSize: 10,
-      dialogTitle: '新增商品',
+      dialogTitle: '新增素材',
       dialogVisible: false,
       goodsInfo: {
         id: '',
@@ -110,16 +111,16 @@ export default {
         file: ''
       },
       rules: {
-        name: [
+        title: [
           { required: true, message: '请输入商品名称', trigger: 'blur' }
         ],
-        points: [
+        type: [
           { required: true, message: '请输入兑换积分', trigger: 'blur' }
         ],
-        price: [
+        url: [
           { required: true, message: '请输入商品原价', trigger: 'blur' }
         ],
-        imgUrl: [
+        file: [
           { required: true, message: '请选择商品图片', trigger: 'blur' }
         ]
       }
@@ -133,38 +134,38 @@ export default {
       getBase64(file.raw, imgUrl => {
         this.goodsInfo.file = file.raw
         this.$set(this.goodsInfo, 'imgUrl', imgUrl)
-      });
+      })
     },
     // 修改商品信息
     modify (r) {
-      console.log(r)
-      const { id, name, points, price } = r
+      const { id, title, type, url, image: imgUrl } = r
       this.goodsInfo = {
         id,
-        name,
-        price,
-        points
+        title,
+        type,
+        url,
+        imgUrl
       }
-      this.dialogTitle = '编辑商品'
+      this.dialogTitle = '编辑素材'
       this.dialogVisible = true
     },
     // 新增商品提交
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          const { name, points, price, file } = this.goodsInfo
-          var formData = new FormData();
-          // formData.append("id", id || null);
-          formData.append("name", name);
-          formData.append("points", points);
-          formData.append("price", price);
-          formData.append("file", file);
-          editGoodsApi(formData).then(res => {
+          const { title, type, url, file } = this.goodsInfo
+          var formData = new FormData()
+          // formData.append("id", id || null)
+          formData.append('title', title)
+          formData.append('type', type)
+          formData.append('url', url)
+          formData.append('file', file)
+          editIndex(formData).then(res => {
             const { code } = res.data
             if (code === 0) {
               this.$notify({
                 title: '成功',
-                message: '配置商品成功',
+                message: '配置文章成功',
                 type: 'success'
               })
               this.dialogVisible = false
@@ -172,7 +173,7 @@ export default {
             } else {
               this.$notify.error({
                 title: '错误',
-                message: '配置商品失败，请刷新重试',
+                message: '配置文章失败，请刷新重试',
                 offset: 100
               })
             }
@@ -198,33 +199,33 @@ export default {
         imgUrl: '',
         file: ''
       }
-      this.dialogTitle = '新增商品'
+      this.dialogTitle = '新增素材'
       this.dialogVisible = true
     },
-    handleCurrentChange (val) {
-      this.currentPage = val
-      this.getList()
-    },
-    handleSizeChange (val) {
-      this.pageSize = val
-      this.getList()
-    },
+    // handleCurrentChange (val) {
+    //   this.currentPage = val
+    //   this.getList()
+    // },
+    // handleSizeChange (val) {
+    //   this.pageSize = val
+    //   this.getList()
+    // },
     deleteItem (id) {
-      delGoodsApi({
+      delIndex({
         id
       }).then(res => {
         const { code } = res.data
         if (code === 0) {
           this.$notify({
             title: '成功',
-            message: '删除商品成功',
+            message: '删除素材成功',
             type: 'success'
           })
           this.getList()
         } else {
           this.$notify.error({
             title: '错误',
-            message: '删除商品失败，请刷新重试',
+            message: '删除素材失败，请刷新重试',
             offset: 100
           })
         }
@@ -237,13 +238,13 @@ export default {
       })
     },
     getList () {
-      getGoodsList({
-        size: this.pageSize,
-        page: this.currentPage
+      getIndexList({
+        // size: this.pageSize,
+        // page: this.currentPage
       }).then(res => {
-        const { code, page } = res.data
+        const { code, list } = res.data
         if (code === 0) {
-          this.goodsList = page.records
+          this.goodsList = list
           // this.courseList.map(item => (item.state = true))
         } else {
           this.$notify.error({

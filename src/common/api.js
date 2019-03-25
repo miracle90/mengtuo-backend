@@ -78,3 +78,41 @@ export function getUserListByContent (data) {
   const url = baseUrl + '/teach/getUserListByContent'
   return axios.post(url, data)
 }
+
+// 赚取积分，新增 or 编辑任务
+export function editTask (data) {
+  const url = baseUrl + '/task/editTask'
+  return axios.post(url, data)
+}
+
+// 获取任务列表
+export function getTaskList (data) {
+  const url = baseUrl + '/task/getTaskList'
+  return axios.post(url, data)
+}
+
+// 删除任务
+export function delTask (data) {
+  const url = baseUrl + '/task/delTask'
+  return axios.post(url, data)
+}
+
+// 首页
+export function editIndex (data) {
+  const url = baseUrl + '/index/editIndex'
+  return axios.post(url, data)
+}
+
+// 获取首页文章信息
+export function getIndexList (data) {
+  const url = baseUrl + '/index/getIndexList'
+  return axios.get(url, {
+    params: data
+  })
+}
+
+// 获取首页文章信息
+export function delIndex (data) {
+  const url = baseUrl + '/index/delIndex'
+  return axios.post(url, data)
+}
