@@ -82,7 +82,7 @@
         </el-form-item>
       </el-form>
     </el-dialog>
-    <el-dialog title="学员列表" :visible.sync="dialogVisibleStudent" width="600px">
+    <el-dialog title="学员列表" :visible.sync="dialogVisibleStudent" width="700px">
       <el-table
         :data="tableData"
         border
@@ -90,12 +90,17 @@
         align="center"
       >
         <el-table-column
-          width="50"
+          type="index"
           align="center"
-          prop="id"
-          label="ID"></el-table-column>
+          width="50"
+          label="序号"></el-table-column>
         <el-table-column
           width="80"
+          align="center"
+          prop="id"
+          label="学员ID"></el-table-column>
+        <el-table-column
+          width="100"
           align="center"
           prop="name"
           label="姓名"></el-table-column>
@@ -113,12 +118,11 @@
           prop="points"
           label="积分"></el-table-column>
       </el-table>
-      <el-pagination
+      <!-- <el-pagination
         class="pagination"
-        :page-size="5"
         layout="total, prev, pager, next"
         :total="userTotal">
-      </el-pagination>
+      </el-pagination> -->
     </el-dialog>
   </div>
 </template>

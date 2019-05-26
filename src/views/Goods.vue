@@ -86,10 +86,10 @@
 <script>
 import { getGoodsList, editGoodsApi, delGoodsApi } from '../common/api'
 
-function getBase64(img, callback) {
-  const reader = new FileReader();
-  reader.addEventListener('load', () => callback(reader.result));
-  reader.readAsDataURL(img);
+function getBase64 (img, callback) {
+  const reader = new FileReader()
+  reader.addEventListener('load', () => callback(reader.result))
+  reader.readAsDataURL(img)
 }
 
 export default {
@@ -133,7 +133,7 @@ export default {
       getBase64(file.raw, imgUrl => {
         this.goodsInfo.file = file.raw
         this.$set(this.goodsInfo, 'imgUrl', imgUrl)
-      });
+      })
     },
     // 修改商品信息
     modify (r) {
@@ -153,12 +153,12 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           const { name, points, price, file } = this.goodsInfo
-          var formData = new FormData();
+          var formData = new FormData()
           // formData.append("id", id || null);
-          formData.append("name", name);
-          formData.append("points", points);
-          formData.append("price", price);
-          formData.append("file", file);
+          formData.append('name', name)
+          formData.append('points', points)
+          formData.append('price', price)
+          formData.append('file', file)
           editGoodsApi(formData).then(res => {
             const { code } = res.data
             if (code === 0) {
@@ -244,6 +244,7 @@ export default {
         const { code, page } = res.data
         if (code === 0) {
           this.goodsList = page.records
+          this.total = page.total
           // this.courseList.map(item => (item.state = true))
         } else {
           this.$notify.error({
