@@ -57,8 +57,17 @@
         label="积分"></el-table-column>
       <el-table-column
         align="center"
+        prop="points"
+        label="总课时"></el-table-column>
+      <el-table-column
+        align="center"
+        prop="points"
+        label="剩余课时"></el-table-column>
+      <el-table-column
+        align="center"
         label="操作">
         <template slot-scope="scope">
+          <el-button @click="handleTime(scope.row)" type="text" size="small">变更课时</el-button>
           <el-button @click="handleClick(scope.row)" type="text" size="small">变更积分</el-button>
         </template>
       </el-table-column>
@@ -112,6 +121,7 @@
         </el-form-item>
       </el-form>
     </el-dialog> -->
+    <!-- 变更积分 -->
     <el-dialog title="变更用户积分" :visible.sync="dialogModifyVisible" width="500px">
       <el-form :model="modifyForm" ref="modifyForm" label-width="100px">
         <el-form-item label="姓名" prop="name">
@@ -135,6 +145,47 @@
           ]"
         >
           <el-input v-model.number="modifyForm.score" placeholder="请输入积分数值"></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="updateForm('modifyForm')" size="medium">确定</el-button>
+          <el-button @click="resetForm('modifyForm')" size="medium">重置</el-button>
+        </el-form-item>
+      </el-form>
+    </el-dialog>
+    <!-- 变更课时 -->
+    <el-dialog title="变更用户课时" :visible.sync="dialogTimeVisible" width="500px">
+      <el-form :model="modifyForm" ref="modifyForm" label-width="100px">
+        <el-form-item label="姓名" prop="name">
+          <el-input v-model="modifyForm.name" disabled></el-input>
+        </el-form-item>
+        <el-form-item label="手机号" prop="email">
+          <el-input v-model="modifyForm.mobile" disabled></el-input>
+        </el-form-item>
+        <!-- <el-form-item label="变更类型" prop="resource">
+          <el-radio-group v-model="modifyForm.type">
+            <el-radio label="1">增加积分</el-radio>
+            <el-radio label="0">消费积分</el-radio>
+          </el-radio-group>
+        </el-form-item> -->
+        <el-form-item
+          label="总课时"
+          prop="score"
+          :rules="[
+            { required: true, message: '积分不能为空'},
+            { type: 'number', message: '积分必须为数字类型'}
+          ]"
+        >
+          <el-input v-model.number="modifyForm.total" placeholder="请输入课时数值"></el-input>
+        </el-form-item>
+        <el-form-item
+          label="剩余课时"
+          prop="score"
+          :rules="[
+            { required: true, message: '课时不能为空'},
+            { type: 'number', message: '课时必须为数字类型'}
+          ]"
+        >
+          <el-input v-model.number="modifyForm.remain" placeholder="请输入课时数值"></el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="updateForm('modifyForm')" size="medium">确定</el-button>
@@ -206,12 +257,15 @@ export default {
       //   ]
       // },
       dialogModifyVisible: false,
+      dialogTimeVisible: false,
       modifyForm: {
         id: '',
         name: '',
         mobile: '',
         type: '1',
-        score: ''
+        score: '',
+        total: 0,
+        remain: 0
       }
       // modifyRules: {
       //   password: [
@@ -352,6 +406,14 @@ export default {
       this.modifyForm.name = r.name
       this.modifyForm.mobile = r.username
       this.dialogModifyVisible = true
+    },
+    // 变更课时
+    handleTime (r) {
+      this.modifyForm.id = r.id
+      this.modifyForm.name = r.name
+      this.modifyForm.total = r.total
+      this.modifyForm.remain = r.remain
+      this.dialogTimeVisible = true
     },
     // getRecordList () {
     //   this.axios.post('http://39.98.181.204:8080/mid/user/getTeachRecordList', {
