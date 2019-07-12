@@ -118,11 +118,6 @@
           prop="points"
           label="积分"></el-table-column>
       </el-table>
-      <!-- <el-pagination
-        class="pagination"
-        layout="total, prev, pager, next"
-        :total="userTotal">
-      </el-pagination> -->
     </el-dialog>
   </div>
 </template>
