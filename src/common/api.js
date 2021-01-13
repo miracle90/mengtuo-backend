@@ -49,6 +49,12 @@ export function userUpdateScore (data) {
   return axios.post(url, data)
 }
 
+// 更新用户课时
+export function userUpdateHour (data) {
+  const url = baseUrl + '/user/updateHour'
+  return axios.post(url, data)
+}
+
 // 新增 or 编辑商品
 export function editGoodsApi (data) {
   const url = baseUrl + '/order/editGoods'

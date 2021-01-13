@@ -57,11 +57,11 @@
         label="积分"></el-table-column>
       <el-table-column
         align="center"
-        prop="points"
+        prop="total"
         label="总课时"></el-table-column>
       <el-table-column
         align="center"
-        prop="points"
+        prop="remain"
         label="剩余课时"></el-table-column>
       <el-table-column
         align="center"
@@ -154,7 +154,7 @@
     </el-dialog>
     <!-- 变更课时 -->
     <el-dialog title="变更用户课时" :visible.sync="dialogTimeVisible" width="500px">
-      <el-form :model="modifyForm" ref="modifyForm" label-width="100px">
+      <el-form :model="modifyForm" ref="modifyHourForm" label-width="100px">
         <el-form-item label="姓名" prop="name">
           <el-input v-model="modifyForm.name" disabled></el-input>
         </el-form-item>
@@ -169,17 +169,17 @@
         </el-form-item> -->
         <el-form-item
           label="总课时"
-          prop="score"
+          prop="total"
           :rules="[
-            { required: true, message: '积分不能为空'},
-            { type: 'number', message: '积分必须为数字类型'}
+            { required: true, message: '课时不能为空'},
+            { type: 'number', message: '课时必须为数字类型'}
           ]"
         >
           <el-input v-model.number="modifyForm.total" placeholder="请输入课时数值"></el-input>
         </el-form-item>
         <el-form-item
           label="剩余课时"
-          prop="score"
+          prop="remain"
           :rules="[
             { required: true, message: '课时不能为空'},
             { type: 'number', message: '课时必须为数字类型'}
@@ -188,8 +188,8 @@
           <el-input v-model.number="modifyForm.remain" placeholder="请输入课时数值"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="updateForm('modifyForm')" size="medium">确定</el-button>
-          <el-button @click="resetForm('modifyForm')" size="medium">重置</el-button>
+          <el-button type="primary" @click="updateHourForm('modifyHourForm')" size="medium">确定</el-button>
+          <el-button @click="resetForm('modifyHourForm')" size="medium">重置</el-button>
         </el-form-item>
       </el-form>
     </el-dialog>
@@ -197,7 +197,7 @@
 </template>
 
 <script>
-import { getUserList, userUpdateScore } from '../common/api'
+import { getUserList, userUpdateScore, userUpdateHour } from '../common/api'
 
 export default {
   data () {
@@ -327,6 +327,47 @@ export default {
             this.$notify.error({
               title: '错误',
               message: '变更用户积分失败，请刷新重试',
+              offset: 100
+            })
+          })
+        } else {
+          this.$notify.error({
+            title: '错误',
+            message: '请输入正确的信息！',
+            offset: 100
+          })
+        }
+      })
+    },
+    updateHourForm (formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          const { id, total, remain } = this.modifyForm
+          userUpdateHour({
+            id,
+            total,
+            remain
+          }).then(res => {
+            const { code } = res.data
+            if (code === 0) {
+              this.$notify({
+                title: '成功',
+                message: '变更用户课时成功',
+                type: 'success'
+              })
+              this.dialogTimeVisible = false
+              this.getList()
+            } else {
+              this.$notify.error({
+                title: '错误',
+                message: '变更用户课时失败，请刷新重试',
+                offset: 100
+              })
+            }
+          }).catch(() => {
+            this.$notify.error({
+              title: '错误',
+              message: '变更用户课时失败，请刷新重试',
               offset: 100
             })
           })
